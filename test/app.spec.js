@@ -3,14 +3,26 @@
 
 const app = require('../src/app');
 
-describe('GET /', () => {
+
+describe('Generic route tests', () => {
+ 
+  it('rejects unauthorized user', () => {
+    return request(app)
+      .get('/')
+      .status(401);
+  });
+
   it('Responds to homepage request', () => {
     return request(app)
       .get('/')
-      .expect(200, 'Hello, Boilerplate!');
+      .set('Authorization', 'a abcde')
+      .expect(200, 'Hello, Noteful!');
   });
 
-
-
-
+  it('Handles invalid request', () => {
+    return request(app)
+      .get('/l')
+      .set('Authorization', 'a abcde')
+      .status(404);
+  });
 });
