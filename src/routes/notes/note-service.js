@@ -1,6 +1,6 @@
 'use strict';
 
-const table = '';
+const table = 'notes';
 
 module.exports = {
   getNotes(db){
@@ -11,13 +11,16 @@ module.exports = {
     return db.select('*').from(table).first().where('id', noteId);
   },
 
-  editNote(db, noteId, newNote){
-    return db.update(table).where('id', noteId);
-    //how to update in server
+  addNote(db, newNote){
+    return db.insert(newNote).into(table)
+  },
+
+  updateNote(db, noteId, updatedNote){
+    return db(table).where('id', noteId).update(updatedNote).returning('*').then(responseArray => responseArray[0]);
   },
 
   deleteNote(db, noteId){
-    //how to delete a note
+    return db(table).where('id', noteId).delete();
   }
 
 };

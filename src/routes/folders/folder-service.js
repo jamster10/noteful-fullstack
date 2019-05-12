@@ -1,6 +1,6 @@
 'use strict';
 
-const table = '';
+const table = 'folders';
 
 module.exports = {
   getNotes(db){
@@ -16,10 +16,10 @@ module.exports = {
   },
 
   updateNote(db, folderId, updatedFolder){
-    db(table).where({folderId}).update(updatedFolder);
+    db(table).where('folder_id', folderId).update(updatedFolder);
   },
 
   deleteNote(db, folderId){
-    db(table).where({folderId}).delete();
+    db(table).where('folder_id', folderId).delete();
   }
 };

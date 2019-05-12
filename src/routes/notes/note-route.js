@@ -1,25 +1,25 @@
 'use strict';
 
-const table = '';
+const express = require('express');
+const NotesService = require('./note-service');
 
-module.exports = {
-  getNotes(db){
-    return db.select('*').from(table);
-  },
+const notesRouter = express.Router();
 
-  getNote(db, noteId){
-    return db.select('*').from(table).first().where('id', noteId);
-  },
 
-  addNote(db, noteId, newnote){
-    return db.insert(newnote).into(table).returning('*').then(responseArray => responseArray[0]);
-  },
 
-  updateNote(db, noteId, updatednote){
-    return db(table).where({noteId}).update(updatednote);
-  },
 
-  deleteNote(db, noteId){
-    return db(table).where({noteId}).delete();
-  }
-};
+
+
+
+
+notesRouter
+  .route('/')
+  .get((req, res, next) => {
+    const db = req.app.get('db');
+    NotesService.getNotes(db)
+      .then(notes => res.status(200).json(notes))
+      .catch(console.log);
+  });
+
+
+  module.exports = notesRouter;

@@ -1,22 +1,30 @@
 'use strict';
 
 const express = require('express');
-const FolderService = require('./folder-service');
+const FoldersService = require('./folder-service');
 
-const folderRouter = express.Router();
-
-
+const foldersRouter = express.Router();
 
 
 
 
 
 
-folderRouter
-  .get('/', (req, res, next) => {
-    FolderService.getNotes(db)
+
+
+foldersRouter
+  .route('/')
+  .get((req, res, next) => {
+    const db = req.app.get('db');
+    FoldersService.getNotes(db)
+      .then(folders => res.status(200).json(folders))
+      .catch(console.log);
   });
 
+
+
+  
+  module.exports = foldersRouter;
 
 
 

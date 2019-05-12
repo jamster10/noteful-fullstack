@@ -9,7 +9,7 @@ const { cors_Settings } = require('./util/CORS_settings');
 const { morgan_Settings } = require('./util/Logging-Winston_Morgan');
 const  validateToken  = require('./util/validateToken');
 const foldersRouter = require('./routes/folders/folder-route');
-const notesRouter = require('./routes/folders/note-route');
+const notesRouter = require('./routes/notes/note-route');
 
 app.use(validateToken);
 app.use(helmet());
