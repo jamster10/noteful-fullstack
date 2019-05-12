@@ -12,7 +12,7 @@ module.exports = {
   },
 
   addNote(db, newNote){
-    return db.insert(newNote).into(table)
+    return db.insert(newNote).into(table).returning('*').then(newNote => newNote[0]);
   },
 
   updateNote(db, noteId, updatedNote){
